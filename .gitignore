@@ -1,0 +1,7 @@
+
+*.pyc
+output/
+*.png
+*.pkl
+*.swp
+build/
