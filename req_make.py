@@ -1,19 +1,21 @@
 __author__ = 'rened'
 
 import inspect, importlib as implib
+import subprocess
+
+unitlist = []
 
 if __name__ == "__main__":
     mod = implib.import_module( "read_labview_rev2" )
-    print mod
     for i in inspect.getmembers(mod, inspect.ismodule ):
-        print i[0],i[1]
+        unitlist.append(( i[1].__name__).split('.')[0])
 
-import pip
-for package in pip.get_installed_distributions():
-    name = package.project_name # SQLAlchemy, Django, Flask-OAuthlib
-    key = package.key # sqlalchemy, django, flask-oauthlib
-    module_name = package._get_metadata("top_level.txt") # sqlalchemy, django, flask_oauthlib
-    location = package.location # virtualenv lib directory etc.
-    version = package.version # version number
+tell_list = list(set(unitlist))
 
-    print key,version
+for item in tell_list:
+    cmd = "/home/rened/anaconda/bin/pip freeze | grep "+item
+    ps = subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+    output = ps.communicate()[0]
+    print output.split('\n')[0]
+
+
