@@ -1,7 +1,9 @@
 import fileinput
+
 import numpy as N
 from pandas import read_table
 from scipy.optimize import curve_fit
+
 
 __author__ = 'rened'
 
@@ -28,16 +30,14 @@ def fitfunc_logist_dt(x,k,c,G):
     return k*fitfunc_logist(x,k,c,G)*(G-fitfunc_logist(x,k,c,G))
 
 
-class Read_LabviewTxT(object):
+class Read_LabviewTxT():
     """"""
     def __init__(self,filename,timestep=0.,delimiter='\t'):
 
-        self.filename = filename
-        self.timearray = []
-        self.timestep = timestep
         self.datarray = []
-        self.popt = []
-        self.pcov = []
+        self.timearray = []
+        self.filename = filename
+        self.timestep = timestep
         self.bin =[]
         self.edges = []
         self.P0 = 0.
@@ -48,6 +48,8 @@ class Read_LabviewTxT(object):
         """ Daten_lesen """
         self.datarray, self.timearray = self.OpenFile(filename,timestep)
         self.popt, self.pcov = curve_fit(fitfunc_logist, self.timearray, self.datarray,maxfev = 8000,ftol=0.49012e-09)
+        # self.fit_data()
+
 
 
     def OpenFile(self,filename,timestep=0.):
