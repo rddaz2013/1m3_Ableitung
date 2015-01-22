@@ -42,7 +42,7 @@ class Read_LabviewTxT():
         self.edges = []
         self.P0 = 0.
         self.Pmax =0.
-        self.P0_offset = 0.2
+        self.P0_offset = 0.1
         self.delimiter = delimiter
 
         """ Daten_lesen """
@@ -76,7 +76,7 @@ class Read_LabviewTxT():
         dat_Num1 = dat_Num1[wo:-1]
 
         ''' Nur bis zuimport numpym maximalen Druck*0.995 anzeigen '''
-        wo = N.where(dat_Num1 > (dat_Num1.max()*0.995))[0][0]
+        wo = N.where(dat_Num1 > (dat_Num1.max() * 0.998))[0][0]
         dat_Num1 = dat_Num1[1:wo]
 
         ''' Zeitachse noch trimmen'''
