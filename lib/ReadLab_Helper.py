@@ -45,9 +45,12 @@ class Read_LabviewTxT():
         self.P0_offset = 0.1
         self.delimiter = delimiter
 
+    def Calc(self):
+
         """ Daten_lesen """
-        self.datarray, self.timearray = self.OpenFile(filename,timestep)
+        self.datarray, self.timearray = self.OpenFile(self.filename,self.timestep)
         self.popt, self.pcov = curve_fit(fitfunc_logist, self.timearray, self.datarray,maxfev = 8000,ftol=0.49012e-09)
+        return self.popt,self.pcov
         # self.fit_data()
 
 

@@ -14,11 +14,10 @@ from lib.ReadLab_Helper import *
 Versuchname = ' Caro'
 filename = 'Caro2014__750g_12'
 dd = Read_LabviewTxT('data/Caro2014__750g_12.txt', timestep=0.002)
+popt,pcov = dd.Calc()
+
 dat_Num = dd.datarray
 zeit_achse = dd.timearray
-
-popt = dd.popt
-pcov = dd.pcov
 
 max_value = dat_Num.max()
 mat = N.column_stack((zeit_achse[:,N.newaxis],dat_Num[:,N.newaxis]))
