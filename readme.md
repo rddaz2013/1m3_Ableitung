@@ -7,6 +7,11 @@ Import Tools für Druckmessungen
 - 1m3 Messungen
 - 1XXm3 Messungen
 
+# Import der Messdaten
+ 
+Die Daten für die 20L Kugel müssen bisher manuell exportiert in ein Txt-file werden. Für die 1m3-Software 
+wird gerade die Konvertierungsumgeschrieben. 1xxm3 ist direkt aus der Messerfassung konvertierbar.
+
 # Auswertung
 
 Es wird ein Export-TXT-File mit den Druckdaten eingelesen und entsprechend konvertiert.
