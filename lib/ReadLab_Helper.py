@@ -42,15 +42,17 @@ class Read_LabviewTxT():
         self.edges = []
         self.P0 = 0.
         self.Pmax =0.
-        self.P0_offset = 0.1
+        self.P0_offset = 0.15
         self.delimiter = delimiter
+        self.temp_kst = 0.
 
     def Calc(self):
 
         """ Daten_lesen """
         self.datarray, self.timearray = self.OpenFile(self.filename,self.timestep)
         self.popt, self.pcov = curve_fit(fitfunc_logist, self.timearray, self.datarray,maxfev = 8000,ftol=0.49012e-09)
-        return self.popt,self.pcov
+        self.temp_kst = N.max(fitfunc_logist_dt(self.timearray, self.popt[0], self.popt[1], self.popt[2]))
+        return self.popt,self.pcov,self.temp_kst
         # self.fit_data()
 
 
@@ -65,7 +67,7 @@ class Read_LabviewTxT():
 
         ''' delimiter skriprow, skip_footer noch in der Klasse implementieren
             orginale Zeitreihe und Druckreihe abrufbar machen '''
-        data_frame = read_table(filename,self.delimiter,names=['Zeit','Druck'],skiprows=7,skip_footer=7)
+        data_frame = read_table(filename,self.delimiter,names=['Zeit','Druck'],skiprows=7,skip_footer=7,engine='python')
         dat_Num1 = data_frame['Druck'].astype(float)
 
         ''' Das P0 aus den ersten 10% der Messdaten mitteln

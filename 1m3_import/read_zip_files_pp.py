@@ -6,11 +6,10 @@ Dieses Programm ist fuer alten Labview txt-export daten
 '''
 
 import glob
+import re
 
-from pandas import *
 import matplotlib.pyplot as plt
 import pp
-from lib.ReadLab_Helper import *
 
 
 Liste_Gewicht = []
@@ -30,7 +29,7 @@ def Calc2(name,timestep):
     dd = Read_LabviewTxT(name,timestep)
     return name,dd.Calc()
 
-job_list = glob.glob('./data/Caro2014/*.txt')
+job_list = glob.glob('./data/Caro2015/*.txt')
 
 jobs = []
 timestep = 0.002
@@ -46,7 +45,24 @@ job_server.print_stats()
 #    if result:
 #        break
 
-print [job() for job in jobs]
+
+for job in jobs:
+    dateiname = job()[0]
+    kst_max  = job()[1][2]
+    max_P = job()[1][0][2]
+
+    m = re.search("(V\d\d) (\d\d\d)g_\d",dateiname)
+
+    if m:
+        Versuch_Name = m.groups()[0]
+        Gewicht = m.groups()[1]
+
+    plt.plot([Gewicht],[kst_max],'ro',label=Versuch_Name)
+
+    print Versuch_Name,Gewicht,max_P,kst_max
+
+plt.show()
+    #print job()[1]
 
 '''for name in glob.glob('./data/Caro2014/*.txt'):
     dd = Read_LabviewTxT(name, timestep=0.002)
