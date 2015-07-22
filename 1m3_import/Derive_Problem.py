@@ -64,7 +64,7 @@ Versuchname = ' Umbau'
 
 Versuchname = ' Umbau'
 filename = 'propan_500hz_1_50L.txt'
-dd = Read_LabviewTxT('data/propan_1000hz_1_50L.txt', timestep=0.0013)
+dd = Read_LabviewTxT('data/1m3_DeriveP/propan_1000hz_1_50L.txt', timestep=0.0013)
 
 popt,pcov,temp_Kst = dd.Calc()
 

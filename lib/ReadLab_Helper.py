@@ -42,7 +42,7 @@ class Read_LabviewTxT():
         self.edges = []
         self.P0 = 0.
         self.Pmax =0.
-        self.P0_offset = 0.15
+        self.P0_offset = 0.11
         self.delimiter = delimiter
         self.temp_kst = 0.
 
@@ -50,7 +50,7 @@ class Read_LabviewTxT():
 
         """ Daten_lesen """
         self.datarray, self.timearray = self.OpenFile(self.filename,self.timestep)
-        self.popt, self.pcov = curve_fit(fitfunc_logist, self.timearray, self.datarray,maxfev = 8000,ftol=0.49012e-09)
+        self.popt, self.pcov = curve_fit(fitfunc_logist, self.timearray, self.datarray,maxfev = 9000,ftol=0.89012e-09)
         self.temp_kst = N.max(fitfunc_logist_dt(self.timearray, self.popt[0], self.popt[1], self.popt[2]))
         return self.popt,self.pcov,self.temp_kst
         # self.fit_data()
