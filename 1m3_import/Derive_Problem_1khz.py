@@ -26,8 +26,8 @@ def draw_tangent(x,y,a):
 
 
 Versuchname = ' Umbau'
-filename = 'Sensor2_propan3.txt'
-dd = Read_LabviewTxT('data/1m3_DeriveP2/sensor2_methan0_10r.txt', timestep=0.002)
+filename = 'Sensor2_propan.txt'
+dd = Read_LabviewTxT('data/1m3_DeriveP/Sensor2_propan.txt', timestep=0.001)
 
 popt,pcov,temp_Kst = dd.Calc()
 
@@ -40,7 +40,6 @@ mat = N.column_stack((zeit_achse[:,N.newaxis],dat_Num[:,N.newaxis]))
 plt.subplot(211)
 xdata = np.linspace(0, N.max(mat[:,0]), 200)
 plt.plot(mat[:,0],mat[:,1])
-print draw_tangent(mat[:,1],mat[:,0],0.333)
 plt.plot(xdata,fitfunc_logist(xdata,popt[0],popt[1],popt[2]),'+')
 plt.ylabel(r"Druck [bar]", fontsize = 12)
 
@@ -60,13 +59,12 @@ text_fr= u'Parameters \n bar/s_max : %3.4f\n barü_max : %3.4f\n P0 : %3.4f'%(N.
 plt.text(N.max(zeit_achse)*0.1,N.max(ableitung)*0.5,text_fr)
 plt.xlabel(r"Time [s]", fontsize = 12)
 plt.ylabel(r"Druck [bar/s]", fontsize = 12)
-
 #savefig(filename+'.png', bbox_inches='tight')
 #plt.show()
 
 Versuchname = ' Umbau'
-filename = 'Sensor1_propan3.txt'
-dd = Read_LabviewTxT('data/1m3_DeriveP2/Sensor2_propan5_4r.txt', timestep=0.002)
+filename = 'Sensor1_propan.txt'
+dd = Read_LabviewTxT('data/1m3_DeriveP/Sensor1_propan.txt', timestep=0.001)
 
 popt,pcov,temp_Kst = dd.Calc()
 
@@ -79,8 +77,8 @@ mat = N.column_stack((zeit_achse[:,N.newaxis],dat_Num[:,N.newaxis]))
 plt.subplot(211)
 xdata = np.linspace(0, N.max(mat[:,0]), 200)
 plt.plot(mat[:,0],mat[:,1])
-print draw_tangent(mat[:,1],mat[:,0],0.083)
-
+#print draw_tangent(mat[:,1],mat[:,0],0.04)
+#print draw_tangent(mat[:,1],mat[:,0],0.0443)
 plt.plot(xdata,fitfunc_logist(xdata,popt[0],popt[1],popt[2]),'+')
 plt.ylabel(r"Druck [bar]", fontsize = 12)
 
