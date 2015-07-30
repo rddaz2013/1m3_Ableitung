@@ -1,0 +1,8 @@
+waveform	
+t0	
+delta t	
+
+time	
+Daten für Excel
+Max Kst	Max Pressure	Peak Kst	Peak Pressure	
+0,000	0,000	0,000	0,000

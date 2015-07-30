@@ -10004,6 +10004,6 @@ time	Y[0]
   17,381058	8,864000E-1
   17,383058	8,864000E-1
   17,385058	8,864000E-1
-Daten für Excel
+Daten fï¿½r Excel
 Max Kst	Max Pressure	Peak Kst	Peak Pressure	
 492,000	8,919	492,000	8,919
