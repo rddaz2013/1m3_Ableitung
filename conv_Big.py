@@ -4,10 +4,11 @@
 # https://github.com/alchemyst/datareaders/blob/master/lvm.py
 # erweitert von RD
 
-import sys
-import numpy
 import StringIO
 from string import ascii_lowercase
+
+import numpy
+
 
 def iterbuf(buf):
     stri = StringIO(buf)
@@ -148,7 +149,7 @@ class lvm:
                                      names=['Zeit','Druck'],
                                      dtype=float)
 
-            self.data['Zeit'] = self.data['Zeit'] - float(part_header['X0'][0])
+            self.data['Zeit'] -= float(part_header['X0'][0])
             print t1,t2,part_header['Y_Unit_Label'][0]
 
             #print self.data['Zeit']
@@ -166,11 +167,11 @@ class lvm:
                 if start_first:
                     Sheet1.write(start_cell,start_row-1,i)
                 Sheet1.write(start_cell,start_row,d)
-                start_cell = start_cell +1
+                start_cell += 1
 
 
             start_first = False
-            start_row = start_row + 1
+            start_row += 1
                 #print i,d
 
 

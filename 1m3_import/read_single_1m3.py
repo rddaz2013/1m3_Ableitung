@@ -6,26 +6,11 @@ Dieses Programm ist fuer alten Labview txt-export daten
 '''
 
 from pandas import *
-import matplotlib.pyplot as plt
-from scipy import interpolate
 
 from lib.ReadLab_Helper import *
+from lib.ReadLab_Helper import draw_tangent
 
 
-def draw_tangent(x,y,a):
-    # interpolate the data with a spline
-    spl = interpolate.splrep(y,x)
-    small_t = N.linspace(a-(a/10),a+(a/10),num=5)
-    fa = interpolate.splev(a,spl,der=0)     # f(a)
-    fprime = interpolate.splev(a,spl,der=1) # f'(a)
-    tan = fa+(fprime*(small_t-a)) # tangent
-
-    plt.plot(a,fa,'om')
-    plt.plot(small_t,tan,'--r',lw=3)#
-    return fprime
-
-
-Versuchname = ' Umbau'
 #filename = 'propan_1000hz_1_50L.txt'
 #dd = Read_LabviewTxT('data/propan_1000hz_2_50L.txt', timestep=0.0013)
 
@@ -63,8 +48,8 @@ Versuchname = ' Umbau'
 #plt.show()
 
 Versuchname = ' Umbau'
-filename = 'propan_500hz_1_50L.txt'
-dd = Read_LabviewTxT('data/propan_1000hz_1_50L.txt', timestep=0.0013)
+filename = 'data/1m3_DeriveP/propan_500hz_1_50L.txt'
+dd = Read_LabviewTxT(filename, timestep=0.002)
 
 popt,pcov,temp_Kst = dd.Calc()
 
@@ -75,10 +60,12 @@ max_value = dat_Num.max()
 mat = N.column_stack((zeit_achse[:,N.newaxis],dat_Num[:,N.newaxis]))
 
 plt.subplot(211)
-xdata = np.linspace(0, N.max(mat[:,0]), 200)
+xdata = np.linspace(0, N.max(mat[:, 0]), 50)
 plt.plot(mat[:,0],mat[:,1])
-print draw_tangent(mat[:,1],mat[:,0],0.04)
-print draw_tangent(mat[:,1],mat[:,0],0.0443)
+for data in xdata:
+    print draw_tangent(mat[:, 1], mat[:, 0], data)
+# print draw_tangent(mat[:,1],mat[:,0],0.037)
+
 plt.plot(xdata,fitfunc_logist(xdata,popt[0],popt[1],popt[2]),'+')
 plt.ylabel(r"Druck [bar]", fontsize = 12)
 

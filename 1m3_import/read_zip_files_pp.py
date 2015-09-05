@@ -1,16 +1,15 @@
 # coding=utf-8
-'''
+"""
 Created on 26.07.2012
-Dieses Programm ist fuer alten Labview txt-export daten 
+Dieses Programm ist fuer alten Labview txt-export daten
 @author: rene
-'''
+"""
 
 import glob
 import re
 
 import matplotlib.pyplot as plt
 import pp
-
 
 Liste_Gewicht = []
 Liste_Druck = []
@@ -19,7 +18,7 @@ ppservers = ()
 
 
 job_server = pp.Server(ppservers=ppservers)
-print "Starting pp with", job_server.get_ncpus(), "workers"
+print "Starting pp with", job_server.get_ncpus() - 1, "workers"
 ppservers = ()
 
 # Jobliste füllen

@@ -1,9 +1,10 @@
 import fileinput
 
+from matplotlib import pyplot as plt
 import numpy as N
 from pandas import read_table
+from scipy import interpolate
 from scipy.optimize import curve_fit
-
 
 __author__ = 'rened'
 
@@ -42,7 +43,7 @@ class Read_LabviewTxT():
         self.edges = []
         self.P0 = 0.
         self.Pmax =0.
-        self.P0_offset = 0.11
+        self.P0_offset = 0.10
         self.delimiter = delimiter
         self.temp_kst = 0.
 
@@ -50,7 +51,7 @@ class Read_LabviewTxT():
 
         """ Daten_lesen """
         self.datarray, self.timearray = self.OpenFile(self.filename,self.timestep)
-        self.popt, self.pcov = curve_fit(fitfunc_logist, self.timearray, self.datarray,maxfev = 9000,ftol=0.89012e-09)
+        self.popt, self.pcov = curve_fit(fitfunc_logist, self.timearray, self.datarray, maxfev=19000, ftol=0.89012e-09)
         self.temp_kst = N.max(fitfunc_logist_dt(self.timearray, self.popt[0], self.popt[1], self.popt[2]))
         return self.popt,self.pcov,self.temp_kst
         # self.fit_data()
@@ -158,3 +159,16 @@ class Read_20LTxT():
         #return dat_Num1-self.P0-self.P0_offset, N.arange(N.size(dat_Num1))*self.timestep
         return data_frame
         """Constructor for Read_LabviewTxT"""
+
+
+def draw_tangent(x, y, a):
+    # interpolate the data with a spline
+    spl = interpolate.splrep(y, x)
+    small_t = N.linspace(a - (a / 20), a + (a / 20), num=5)
+    fa = interpolate.splev(a, spl, der=0)  # f(a)
+    fprime = interpolate.splev(a, spl, der=1)  # f'(a)
+    tan = fa + (fprime * (small_t - a))  # tangent
+
+    plt.plot(a, fa, 'om')
+    plt.plot(small_t, tan, '--r', lw=3)  #
+    return fprime

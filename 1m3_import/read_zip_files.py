@@ -1,14 +1,14 @@
 # coding=utf-8
-'''
+"""
 Created on 26.07.2012
-Dieses Programm ist fuer alten Labview txt-export daten 
+Dieses Programm ist fuer alten Labview txt-export daten
 @author: rene
-'''
+"""
 
 import glob
 
 from pandas import *
-import matplotlib.pyplot as plt
+
 from lib.ReadLab_Helper import *
 
 Liste_Gewicht = []
