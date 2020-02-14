@@ -30,4 +30,5 @@ Es kann [pip][3] verwendet werden um die Anhängigkeiten zu installieren:
 
     pip install -r requirements.txt
 
-
+# TODO 2020
+Umbau auf Python3/Ipython und auf neue Messtechnik vorbereiten. 
