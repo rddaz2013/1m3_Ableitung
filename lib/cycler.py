@@ -133,7 +133,7 @@ class Cycler(object):
         with the proper operation (zip or product as of now)
         """
         for a, b in self._op(self._left, self._right):
-            out = dict()
+            out = {}
             out.update(a)
             out.update(b)
             yield out
@@ -159,7 +159,7 @@ class Cycler(object):
             New 'base' `Cycler`
         """
         ret = cls(None)
-        ret._left = list({label: v} for v in itr)
+        ret._left = [{label: v} for v in itr]
         ret._keys = set([label])
         return ret
 
@@ -259,7 +259,7 @@ class Cycler(object):
         op_map = {zip: '+', product: '*'}
         if self._right is None:
             lab = self.keys.pop()
-            itr = list(v[lab] for v in self)
+            itr = [v[lab] for v in self]
             return "cycler({lab!r}, {itr!r})".format(lab=lab, itr=itr)
         else:
             op = op_map.get(self._op, '?')
@@ -298,7 +298,7 @@ class Cycler(object):
 
         keys = self.keys
         # change this to dict comprehension when drop 2.6
-        out = dict((k,  list()) for k in keys)
+        out = {k: list() for k in keys}
 
         for d in self:
             for k in keys:
@@ -352,6 +352,6 @@ def cycler(label, itr):
             return copy.copy(itr)
         else:
             lab = keys.pop()
-            itr = list(v[lab] for v in itr)
+            itr = [v[lab] for v in itr]
 
     return Cycler._from_iter(label, itr)
